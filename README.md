@@ -1,5 +1,8 @@
 # Клиент PxP хаба для Go
 
+```
+go get github.com/dr-dro/pxp-go
+```
 
 ### Создание подключения к хабу
 ```go
@@ -21,6 +24,11 @@ hub := pxp.NewHub(
 //Отправка сообщения "Hello!" от user1 к user2
 //блокируется до получения ответа
 err := hub.SendMessage("user1", "user2", "Hello!", "secretA")
+if err == nil {
+  //Сообщение точно не потеряется и 
+  //рано или поздно дойдет до адресата
+  fmt.Println("done")
+}
 ```
 
 ### Чтение сообщений
