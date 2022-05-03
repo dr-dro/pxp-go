@@ -1,3 +1,3 @@
-module pxp-go
+module pxp
 
 go 1.18
