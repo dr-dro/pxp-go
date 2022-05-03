@@ -1,5 +1,5 @@
-# pxp-go
-Клиент PxP хаба для Go
+# Клиент PxP хаба для Go
+
 
 ### Создание подключения к хабу
 ```go
@@ -25,6 +25,11 @@ err := hub.SendMessage("user1", "user2", "Hello!", "secretA")
 
 ### Чтение сообщений
 ```go
+
+//контекст для остановки чтения сообщений
+ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+defer cancel()
+  
 //Создание каналов чтения сообщений и ошибок
 dispatch, on_error := hub.ReceiveMessage(ctx, "user2", "secret2")
 
@@ -36,9 +41,10 @@ for {
     //новое сообщение
     fmt.Println(mes.Offset, mes.From, mes.Data)
   case err := <-on_error:
-    //новая ошибка  
+    //ошибка  
     fmt.Println("error: ", err.Error())
   case <-ctx.Done():
+    //завершение  
     return
   }
 
